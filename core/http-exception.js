@@ -19,9 +19,9 @@ class Success extends HttpException {
 
 // 参数错误
 class ParamsError extends HttpException {
-  constructor({msg = '参数错误', data = ''}){
+  constructor({msg = '参数错误', data = '', code = 500}){
     super()
-    this.code = 500
+    this.code = code
     this.msg = msg
     this.data = data
   }

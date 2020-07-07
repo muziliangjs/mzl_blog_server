@@ -1,14 +1,17 @@
-const Router = require('koa-router') 
+const Router = require('koa-router')
 const router = new Router({
   prefix: '/v1/article'
 })
 const {
+  Auth
+} = require('../../../middlewares/auth')
+const {
   Article
 } = require('../../models/articleModel.js')
 
-router.get('/', (ctx) => { 
+router.post('/', new Auth().verify, async (ctx) => {
   ctx.body = {
-    code: 200
+    uid: ctx.auth.uid
   }
 })
 

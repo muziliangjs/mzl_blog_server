@@ -1,4 +1,8 @@
 const Router = require('koa-router')
+// const bcrypt = require('bcryptjs')
+const {
+  generateToken
+} = require('../../../core/utils')
 const router = new Router({
   prefix: '/v1/user'
 })
@@ -21,27 +25,41 @@ router.post('/register', async ctx => {
       msg: '账号密码不能为空'
     })
   }
-  const user = await User.getUserByOpenid(username) 
+  const user = await User.getUserByUsername(username)
   if (user) error({
     msg: '用户已存在'
   })
-  const {
-    dataValues
-  } = await User.registerUser({
+  // 10 位数成本
+  // const salt = bcrypt.genSaltSync(10)
+  // const psw = bcrypt.hashSync(password, salt)
+  const createUser = await User.registerUser({
     password,
+    // username: psw
     username
   })
   success({
-    data: dataValues
+    data: {
+      id: createUser.id,
+      username: createUser.username
+    }
   })
 })
 
 // 用户登录
-router.get('/login', async (ctx) => {
-  error({
+router.post('/login', async (ctx) => {
+  const {
+    password,
+    username
+  } = ctx.request.body;
+  if (!username || !password) {
+    error({
+      msg: '账号密码不能为空'
+    })
+  }
+  const user = await User.verifyPassword(username, password)
+  success({
     data: {
-      query: ctx.query || '',
-      body: ctx.request.body || '',
+      token: generateToken(user.id, 2),
     }
   })
 })

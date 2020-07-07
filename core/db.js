@@ -20,7 +20,7 @@ const sequelize = new Sequelize(database.dbName,database.user,database.password,
 })
 
 sequelize.sync({
-  force: true // 同步更新字段
+  force: false // 同步更新字段
 })
 
 module.exports = {

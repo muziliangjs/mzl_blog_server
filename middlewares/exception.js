@@ -10,7 +10,7 @@ const catchError = async (ctx, next) => {
       ctx.body = {
         msg: err.msg,
         code: err.code,
-        data: err.data
+        data: err.data,
         // request: `${ctx.method} ${ctx.path}`
       }
       // ctx.status = err.code
@@ -18,6 +18,7 @@ const catchError = async (ctx, next) => {
       ctx.body = {
         msg: err || '服务器错误',
         code: 500,
+        data: '',
         request: `${ctx.method} ${ctx.path}`
       }
       // ctx.status = 500

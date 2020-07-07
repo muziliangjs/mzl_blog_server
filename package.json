@@ -9,7 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "basic-auth": "^2.0.1",
+    "bcryptjs": "^2.4.3",
     "co-body": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
     "koa-router": "^8.0.8",
     "koa2": "^2.0.0-alpha.7",
     "mysql2": "^2.1.0",
