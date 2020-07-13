@@ -1,10 +1,17 @@
-const SequeLize = require('sequelize')
+const {
+  Sequelize,
+  Model
+} = require('sequelize')
+const {
+  unset,
+  clone,
+  isArray
+} = require('lodash')
 const {
   database
 } = require('../config/config')
-const { Sequelize } = require('sequelize')
 
-const sequelize = new Sequelize(database.dbName,database.user,database.password, {
+const sequelize = new Sequelize(database.dbName, database.user, database.password, {
   dialect: 'mysql',
   host: database.host,
   port: database.port,
@@ -22,6 +29,19 @@ const sequelize = new Sequelize(database.dbName,database.user,database.password,
 sequelize.sync({
   force: false // 同步更新字段
 })
+
+Model.prototype.toJSON = function () {
+  let data = clone(this.dataValues)
+  unset(data, 'created_at')
+  unset(data, 'updated_at')
+  unset(data, 'deleted_at')
+  if (isArray(this.exclude)) {
+    this.exclude.forEach(val => {
+      unset(data, val)
+    });
+  }
+  return data
+}
 
 module.exports = {
   sequelize

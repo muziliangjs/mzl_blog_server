@@ -1,6 +1,7 @@
 const {
   sequelize
 } = require('../../core/db')
+var moment = require('moment');
 const {
   Sequelize,
   Model,
@@ -8,26 +9,70 @@ const {
 
 class Article extends Model {
   // 不能用 constructor
+  static async createArticle(article) {
+    return await Article.create(article);
+  }
 
+  static async updateArticle(article, id) {
+    return await Article.update(article, {
+      where: {
+        id
+      }
+    });
+  }
+
+  static async getArticleList(label_id) {
+    let list
+    if (label_id != '' && label_id != 0) {
+      list = await Article.findAll({
+        where: {
+          label_id
+        }
+      });
+    } else {
+      list = await Article.findAll();
+    }
+    return list
+  }
+
+  static async getFindById(id) {
+    return await Article.findOne({
+      where: {
+        id
+      }
+    })
+  }
+
+  static async delLabel(id) {
+    const isSuc = await Article.destroy({
+      where: {
+        id
+      }
+    })
+    return isSuc
+  }
 }
 
 Article.init({
   id: {
     type: Sequelize.INTEGER,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  author_id: {
+    type: Sequelize.INTEGER,
   },
   title: Sequelize.STRING,
   description: Sequelize.STRING,
-  content: Sequelize.STRING,
+  content: Sequelize.TEXT,
   create_time: {
-    type: Sequelize.DATE,
-    // 默认设置当前时间
-    defaultValue: Sequelize.NOW
+    type: Sequelize.STRING,
+    defaultValue: moment().format("YYYY-MM-DD"),
   },
-  view: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0,
-  },
+  // view: {
+  //   type: Sequelize.INTEGER,
+  //   defaultValue: 0,
+  // },
   label: Sequelize.STRING,
   label_id: Sequelize.INTEGER,
 }, {

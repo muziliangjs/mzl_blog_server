@@ -14,7 +14,7 @@ const {
 } = require('../../models/labelModel.js')
 
 // 列表
-router.post('/', new Auth().verify, async (ctx) => { 
+router.post('/', new Auth().verify, async (ctx) => {
   const list = await Label.getLabelList()
   success({
     data: list
@@ -22,7 +22,7 @@ router.post('/', new Auth().verify, async (ctx) => {
 })
 
 // 添加
-router.post('/create', new Auth().verify, async (ctx) => { 
+router.post('/create', new Auth().verify, async (ctx) => {
   const {
     label
   } = ctx.request.body;
@@ -32,8 +32,25 @@ router.post('/create', new Auth().verify, async (ctx) => {
     })
   }
   const data = await Label.createLabel(label)
+  data.exclude = ['id']
   success({
     data: data
+  })
+})
+
+// 添加
+router.post('/del', new Auth().verify, async (ctx) => {
+  const {
+    id
+  } = ctx.request.body;
+  if (!id) {
+    error({
+      msg: 'id参数必填'
+    })
+  }
+  const data = await Label.delLabel(id)
+  data == 1 ? success() : error({
+    msg: '删除失败'
   })
 })
 
