@@ -13,17 +13,23 @@ const {
   Article
 } = require('../../models/articleModel.js')
 
-router.post('/', new Auth().verify, async (ctx) => {
+// 获取列表/筛选
+router.post('/', async (ctx) => {
   const {
-    label_id
-  } = ctx.request.body;
-  const list = await Article.getArticleList(label_id)
+    label_id = '',
+      page = 1,
+      limit = 10,
+  } = ctx.request.body; 
+  const list = await Article.getArticleList(label_id, page, limit)
   success({
-    data: list
+    data: {
+      count: list.count,
+      list: list.rows.map(item => item.dataValues)
+    }
   })
 })
 
-//修改
+// 修改
 router.post('/modify', new Auth().verify, async (ctx) => {
   const {
     title,
@@ -55,6 +61,7 @@ router.post('/modify', new Auth().verify, async (ctx) => {
     })
 })
 
+// 删除
 router.post('/del', new Auth().verify, async (ctx) => {
   const {
     id
@@ -70,13 +77,14 @@ router.post('/del', new Auth().verify, async (ctx) => {
   })
 })
 
-router.post('/find', new Auth().verify, async (ctx) => {
+// 通过ID获取
+router.post('/find', async (ctx) => {
   const {
     id
   } = ctx.request.body;
   if (!id) {
     error({
-      msg: '參數錯誤'
+      msg: '参数错误'
     })
   }
   const data = await Article.getFindById(id)
@@ -85,6 +93,7 @@ router.post('/find', new Auth().verify, async (ctx) => {
   })
 })
 
+// 创建
 router.post('/create', new Auth().verify, async (ctx) => {
   const {
     title,

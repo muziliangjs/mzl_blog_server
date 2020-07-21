@@ -14,7 +14,7 @@ const {
 } = require('../../models/labelModel.js')
 
 // 列表
-router.post('/', new Auth().verify, async (ctx) => {
+router.post('/', async (ctx) => {
   const list = await Label.getLabelList()
   success({
     data: list

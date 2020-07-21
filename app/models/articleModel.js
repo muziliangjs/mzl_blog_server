@@ -21,16 +21,29 @@ class Article extends Model {
     });
   }
 
-  static async getArticleList(label_id) {
+  static async getArticleList(label_id, page, limit) {
     let list
     if (label_id != '' && label_id != 0) {
-      list = await Article.findAll({
+      // list = await Article.findAll({ 分页
+      // 联表查询
+      list = await Article.findAndCountAll({
+        order: [
+          ['id', 'desc']
+        ],
         where: {
           label_id
-        }
+        },
+        offset: (page - 1) * limit,
+        limit: parseInt(limit),
       });
     } else {
-      list = await Article.findAll();
+      list = await Article.findAndCountAll({
+        order: [
+          ['id', 'desc']
+        ],
+        offset: (page - 1) * limit,
+        limit: parseInt(limit),
+      });
     }
     return list
   }
