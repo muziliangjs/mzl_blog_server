@@ -4,10 +4,10 @@ module.exports = {
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: 'dabao8787'
+    password: '******'
   },
   security:{
-    secretKey:'mzl@#$a324#$%#$asd',
+    secretKey:"1111",
     expiresIn: 60 * 60 * 24// 60 * 60一个小时
   }
 }

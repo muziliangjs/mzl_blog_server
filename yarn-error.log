@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.17.3/libexec/bin/yarn.js add koa2-cors
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.17.3/libexec/bin/yarn.js add kDoa-body
 
 PATH: 
   /usr/local/Cellar/dart/2.6.0-dev.8.2/bin:/Users/jsbao/Desktop/study/flutter/bin:/usr/local/Cellar/dart/2.6.0-dev.8.2/bin:/Users/jsbao/Desktop/study/flutter/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/mysql/bin:/usr/local/Cellar/dart/2.6.0-dev.8.2/bin:/Users/jsbao/Desktop/study/flutter/bin:/users/jsbao/Library/android/sdk/tools:/users/jsbao/Library/android/sdk/platform-tools:/users/jsbao/Library/android/sdk/tools:/users/jsbao/Library/android/sdk/platform-tools:/users/jsbao/Library/android/sdk/tools:/users/jsbao/Library/android/sdk/platform-tools
@@ -14,7 +14,17 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/jsbao/Desktop/blog-server/node_modules/accepts/README.md'
+  Error: https://registry.npm.taobao.org/kDoa-body: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:66830:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:140464:22)
+      at Request.emit (events.js:198:13)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:141436:10)
+      at Request.emit (events.js:198:13)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:141358:12)
+      at Object.onceWrapper (events.js:286:20)
+      at IncomingMessage.emit (events.js:203:15)
+      at endReadableNT (_stream_readable.js:1129:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
 
 npm manifest: 
   {
@@ -34,6 +44,7 @@ npm manifest:
       "jsonwebtoken": "^8.5.1",
       "koa-router": "^8.0.8",
       "koa2": "^2.0.0-alpha.7",
+      "koa2-cors": "^2.0.6",
       "lodash": "^4.17.15",
       "moment": "^2.27.0",
       "mysql2": "^2.1.0",
@@ -385,6 +396,11 @@ Lockfile:
       methods "^1.1.2"
       path-to-regexp "1.x"
       urijs "^1.19.2"
+  
+  koa2-cors@^2.0.6:
+    version "2.0.6"
+    resolved "https://registry.npm.taobao.org/koa2-cors/download/koa2-cors-2.0.6.tgz#9ad23df3a0b9bb84530b46f5944f3fb576086554"
+    integrity sha1-mtI986C5u4RTC0b1lE8/tXYIZVQ=
   
   koa2@^2.0.0-alpha.7:
     version "2.0.0-alpha.7"
