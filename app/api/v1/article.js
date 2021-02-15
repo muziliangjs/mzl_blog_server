@@ -1,4 +1,5 @@
 const Router = require('koa-router')
+var moment = require('moment');
 const router = new Router({
   prefix: '/v1/article'
 })
@@ -19,7 +20,7 @@ router.post('/', async (ctx) => {
     label_id = '',
       page = 1,
       limit = 10,
-  } = ctx.request.body; 
+  } = ctx.request.body;
   const list = await Article.getArticleList(label_id, page, limit)
   success({
     data: {
@@ -114,6 +115,7 @@ router.post('/create', new Auth().verify, async (ctx) => {
     content,
     label,
     label_id,
+    create_time: moment().format("YYYY-MM-DD"),
   }
   const data = await Article.createArticle(articleTmp)
   success({

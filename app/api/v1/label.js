@@ -38,7 +38,7 @@ router.post('/create', new Auth().verify, async (ctx) => {
   })
 })
 
-// 添加
+// 删除
 router.post('/del', new Auth().verify, async (ctx) => {
   const {
     id
